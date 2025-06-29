@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the number and GET THE FLAG!!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f9ff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            background-color: white;
+            width: 90%;
+            max-width: 500px;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        h1 {
+            color: #1a237e;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        input[type="number"] {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            transition: border-color 0.3s;
+            text-align: center;
+        }
+        
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #1a237e;
+        }
+        
+        button {
+            background-color: #1a237e;
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 0.5rem;
+        }
+        
+        button:hover {
+            background-color: #0e1859;
+        }
+        
+        button:active {
+            transform: scale(0.98);
+        }
+        
+        #result {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 6px;
+            font-weight: 500;
+            display: none;
+        }
+        
+        .success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border-left: 4px solid #2e7d32;
+        }
+        
+        .error {
+            background-color: #ffebee;
+            color: #c62828;
+            border-left: 4px solid #c62828;
+        }
+        
+        .info {
+            background-color: #e8eaf6;
+            color: #3949ab;
+            border-left: 4px solid #3949ab;
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        #result.animated {
+            animation: fadeIn 0.3s ease-in-out forwards;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Can You guess the correct Number</h1>
+        
+        <form id="guessForm">
+            <div class="form-group">
+                <input type="number" id="numberInput" min="1" max="100000" placeholder="Enter a number (1-100,000)" required>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('guessForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const number = parseInt(document.getElementById('numberInput').value);
+            
+            // GraphQL query
+            const query = `
+                query {
+                    guessNumber(number: ${number}) {
+                        correct
+                        message
+                        flag
+                    }
+                }
+            `;
+            
+            fetch('/graphql', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ query }),
+            })
+            .then(response => {
+                if (!response.ok && response.status === 429) {
+                    throw new Error('Rate limit exceeded');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.errors) {
+                    if (data.errors[0].message.includes('Rate limit exceeded')) {
+                        throw new Error('Rate limit exceeded');
+                    } else {
+                        throw new Error('Error occurred');
+                    }
+                }
+                
+                const result = data.data.guessNumber;
+                
+                if (result.correct) {
+                    showResult(`Correct! Flag: ${result.flag}`, 'success');
+                } else {
+                    showResult('Incorrect', 'info');
+                }
+            })
+            .catch(error => {
+                showResult(error.message, 'error');
+            });
+        });
+
+        function showResult(message, type) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = message;
+            resultDiv.className = type;
+            resultDiv.style.display = 'block';
+            
+            // Add animation
+            resultDiv.classList.remove('animated');
+            void resultDiv.offsetWidth; // Force reflow
+            resultDiv.classList.add('animated');
+        }
+    </script>
+</body>
+</html>

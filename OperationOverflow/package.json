@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "express": "^5.1.0",
+    "express-graphql": "^0.12.0",
+    "express-rate-limit": "^7.5.0",
+    "express-session": "^1.18.1",
+    "graphql": "^15.10.1",
+    "graphql-query-complexity": "^1.1.0"
+  }
+}

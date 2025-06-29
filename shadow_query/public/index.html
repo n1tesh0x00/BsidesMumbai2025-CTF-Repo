@@ -1,0 +1,87 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mumbai Food Network Monitor</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <img src="/images/logo.png" alt="Mumbai Food Network">
+                <h1>Mumbai Food Network Monitor</h1>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html" id="home-link">Home</a></li>
+                    <li><a href="networktools.html" id="tools-link">Network Tools</a></li>
+                    <li><a href="about.html" id="about-link">About</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <img src="/images/mumbai-street-food.jpg" alt="Mumbai Street Food">
+            <div class="hero-text">
+                <h2>Monitoring Mumbai's Digital Food Network</h2>
+                <p>Ensuring smooth connections between Mumbai's vibrant food businesses</p>
+            </div>
+        </section>
+
+        <main class="main-content">
+            <section id="home-section">
+                <h2>Welcome to Mumbai Food Network</h2>
+                <div class="food-gallery">
+                    <img src="/images/vada-pav.jpg" alt="Vada Pav">
+                    <img src="/images/pani-puri.jpg" alt="Pani Puri">
+                    <img src="/images/bhel-puri.jpg" alt="Bhel Puri">
+                </div>
+                <p>Our network monitoring tools help Mumbai's food businesses stay connected with their customers and suppliers.</p>
+            </section>
+
+            <section id="tools-section" style="display:none;">
+                <h2>Network Diagnostic Tools</h2>
+                
+                <div class="tool-card">
+                    <h3>Ping Tool</h3>
+                    <div class="tool-form">
+                        <input type="text" id="ping-ip" placeholder="Enter IP Address (e.g., 8.8.8.8)">
+                        <button id="ping-btn" class="btn">Ping</button>
+                    </div>
+                    <div class="tool-results" id="ping-results"></div>
+                </div>
+                
+                <div class="tool-card">
+                    <h3>Traceroute</h3>
+                    <div class="tool-form">
+                        <input type="text" id="traceroute-ip" placeholder="Enter IP Address (e.g., 8.8.8.8)">
+                        <button id="traceroute-btn" class="btn">Trace</button>
+                    </div>
+                    <div class="tool-results" id="traceroute-results"></div>
+                </div>
+                
+                <div class="tool-card">
+                    <h3>DNS Lookup</h3>
+                    <div class="tool-form">
+                        <input type="text" id="dns-ip" placeholder="Enter IP Address (e.g., 8.8.8.8)">
+                        <button id="dns-btn" class="btn">Lookup</button>
+                    </div>
+                    <div class="tool-results" id="dns-results"></div>
+                </div>
+            </section>
+
+            <section id="about-section" style="display:none;">
+                <h2>About Mumbai Food Network</h2>
+                <p>We combine Mumbai's rich food culture with cutting-edge network technology to help food businesses thrive in the digital age.</p>
+            </section>
+
+        <footer class="footer">
+            <p>&copy; 2025 Mumbai Food Network Monitor</p>
+        </footer>
+    </div>
+
+    <script src="/js/network-tool.js"></script>
+</body>
+</html>

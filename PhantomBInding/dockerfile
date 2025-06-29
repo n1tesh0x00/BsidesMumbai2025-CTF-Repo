@@ -1,0 +1,10 @@
+FROM python:3.9-slim
+WORKDIR /app
+COPY . .
+RUN pip install flask requests werkzeug
+
+RUN echo '#!/bin/bash\necho "nameserver 8.8.8.8" > /etc/resolv.conf\necho "nameserver 8.8.4.4" >> /etc/resolv.conf\nexec "$@"' > /start.sh && chmod +x /start.sh
+
+EXPOSE 80
+ENTRYPOINT ["/start.sh"]
+CMD ["python3", "app-data.py"]
