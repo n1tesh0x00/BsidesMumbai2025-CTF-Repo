@@ -7,4 +7,4 @@ Description: Guess the secret number and I’ll give you the flag. Sounds easy, 
 But this isn’t your average guessing game — let’s see how clever you really are.
 
 ### 3. Phantom-Binding
-DescriptionL: Welcome to Phantom — the future of social media, backed by “rock-solid” security. But sometimes, confidence leads to cracks. Can you slip through and uncover what lies beneath?
+Description: Welcome to Phantom — the future of social media, backed by “rock-solid” security. But sometimes, confidence leads to cracks. Can you slip through and uncover what lies beneath?
